@@ -10,7 +10,7 @@ export const Scene = () => {
     >
       <ambientLight intensity={1} />
       <pointLight position={[10, 10, 10]} />
-      <ScrollControls pages={4} damping={0.25}>
+      <ScrollControls pages={6} damping={0.25}>
         <Keyboard />
       </ScrollControls>
     </Canvas>

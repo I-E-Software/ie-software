@@ -35,9 +35,19 @@ export function Keyboard(props: any) {
                 x: 1,
                 y: 2,
                 z: 0,
-                duration: 0.8,
+                duration: 1,
               },
-              timelinePoint: 1,
+              timelinePoint: 0.5,
+            },
+            {
+              objectToAnimate: generalGroupRef.current.position,
+              properties: {
+                x: 0.2,
+                y: 0.1,
+                z: 0,
+                duration: 1,
+              },
+              timelinePoint: 2,
             },
             {
               objectToAnimate: generalGroupRef.current.position,
@@ -45,51 +55,51 @@ export function Keyboard(props: any) {
                 x: 0,
                 y: 0,
                 z: 0,
-                duration: 0.8,
+                duration: 0.5,
               },
-              timelinePoint: 5.6,
-            },
-            {
-              objectToAnimate: generalGroupRef.current.position,
-              properties: {
-                x: 0,
-                y: 0,
-                z: 0,
-                duration: 0.8,
-              },
-              timelinePoint: 5.6,
-            },
-            {
-              objectToAnimate: generalGroupRef.current.position,
-              properties: {
-                x: 0,
-                y: 0,
-                z: 0,
-                duration: 0.8,
-              },
-              timelinePoint: 5.6,
+              timelinePoint: 3.4,
             },
             {
               objectToAnimate: generalGroupRef.current.rotation,
               properties: {
-                x: -1.8,
-                y: 1.10198,
+                x: 0,
+                y: 1.5,
                 z: 0,
                 duration: 0.8,
               },
-              timelinePoint: 5.5,
+              timelinePoint: 3.4,
             },
             {
-              objectToAnimate: camera,
+              objectToAnimate: generalGroupRef.current.rotation,
               properties: {
-                zoom: 1.8,
+                x: 4,
+                y: -0.5,
+                z: 0,
                 duration: 0.8,
-                onUpdate: () => {
-                  camera.updateProjectionMatrix();
-                },
               },
-              timelinePoint: 5.8,
-            }
+              timelinePoint: 4.5,
+            },
+            // {
+            //   objectToAnimate: generalGroupRef.current.rotation,
+            //   properties: {
+            //     x: -1.8,
+            //     y: 1.10198,
+            //     z: 0,
+            //     duration: 0.8,
+            //   },
+            //   timelinePoint: 5.5,
+            // },
+            // {
+            //   objectToAnimate: camera,
+            //   properties: {
+            //     zoom: 1.8,
+            //     duration: 0.8,
+            //     onUpdate: () => {
+            //       camera.updateProjectionMatrix();
+            //     },
+            //   },
+            //   timelinePoint: 5.8,
+            // }
           ];
           AnimationsData = [
             ...AnimationsData,
