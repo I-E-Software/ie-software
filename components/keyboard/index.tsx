@@ -7,16 +7,123 @@ Source: https://sketchfab.com/3d-models/keyboard-ba869e8681974cf088736173b8b86fe
 Title: keyboard
 */
 
-import React, { useRef } from 'react'
-import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
+import React, { useRef, useLayoutEffect } from 'react'
+import { useGLTF, OrbitControls, useScroll } from '@react-three/drei'
+import gsap from 'gsap'
+import { useFrame, useThree } from 'react-three-fiber';
 
 export function Keyboard(props: any) {
-    const group = useRef()
-    const { nodes, materials, animations } = useGLTF('/models/keyboard.gltf') as any
-    const { actions } = useAnimations(animations, group)
+    const { nodes, materials } = useGLTF('/models/keyboard.gltf') as any
+    const scrollControl = useScroll();
+
+    const camera = useThree((state) => state.camera);
+
+    const timeline = useRef() as any;
+
+    const generalGroupRef = useRef() as any;
+
+    useLayoutEffect(() => {
+        timeline.current = gsap.timeline();
+
+        let AnimationsData = [] as any;
+
+        const BrandLogoAnimations = [
+            // Restore previous animations
+            {
+              objectToAnimate: generalGroupRef.current.rotation,
+              properties: {
+                x: 1,
+                y: 2,
+                z: 0,
+                duration: 0.8,
+              },
+              timelinePoint: 1,
+            },
+            {
+              objectToAnimate: generalGroupRef.current.position,
+              properties: {
+                x: 0,
+                y: 0,
+                z: 0,
+                duration: 0.8,
+              },
+              timelinePoint: 5.6,
+            },
+            {
+              objectToAnimate: generalGroupRef.current.position,
+              properties: {
+                x: 0,
+                y: 0,
+                z: 0,
+                duration: 0.8,
+              },
+              timelinePoint: 5.6,
+            },
+            {
+              objectToAnimate: generalGroupRef.current.position,
+              properties: {
+                x: 0,
+                y: 0,
+                z: 0,
+                duration: 0.8,
+              },
+              timelinePoint: 5.6,
+            },
+            {
+              objectToAnimate: generalGroupRef.current.rotation,
+              properties: {
+                x: -1.8,
+                y: 1.10198,
+                z: 0,
+                duration: 0.8,
+              },
+              timelinePoint: 5.5,
+            },
+            {
+              objectToAnimate: camera,
+              properties: {
+                zoom: 1.8,
+                duration: 0.8,
+                onUpdate: () => {
+                  camera.updateProjectionMatrix();
+                },
+              },
+              timelinePoint: 5.8,
+            }
+          ];
+          AnimationsData = [
+            ...AnimationsData,
+            ...BrandLogoAnimations,
+          ];
+
+        AnimationsData.map((animation: any) => {
+            timeline.current.to(
+                animation.objectToAnimate,
+                {
+                    ...animation.properties,
+                },
+                animation.timelinePoint,
+            );
+        });
+
+        // timeline.current.to(
+        //     generalGroupRef.current.rotation,
+        //     {
+        //         y: Math.PI * 2,
+        //         duration: 2,
+        //     },
+        //     2.5
+        // );
+
+    }, [])
+
+    useFrame(() => {
+        timeline.current.seek(scrollControl.offset * timeline.current.duration());
+    });
+
     return (
         <>
-            <group ref={group} {...props} dispose={null}>
+            <group ref={generalGroupRef} {...props} dispose={null}>
                 <group name="Sketchfab_Scene">
                     <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
                         <group name="root">
@@ -292,7 +399,7 @@ export function Keyboard(props: any) {
                     </group>
                 </group>
             </group>
-            <OrbitControls />
+            <OrbitControls enableZoom={false} />
         </>
     )
 }
