@@ -22,13 +22,39 @@ export function Keyboard(props: any) {
 
     const generalGroupRef = useRef() as any;
 
+    // Html div references
+    const page_1_ref = useRef();
+    const page_2_ref = useRef();
+    const page_3_ref = useRef();
+    const page_4_ref = useRef();
+    const page_5_ref = useRef();
+    const page_6_ref = useRef();
+
+    useLayoutEffect(() => {
+        page_1_ref.current = document.getElementById("page-1") as unknown as any;
+        page_2_ref.current = document.getElementById("page-2") as unknown as any;
+        page_3_ref.current = document.getElementById("page-3") as unknown as any;
+        page_4_ref.current = document.getElementById("page-4") as unknown as any;
+        page_5_ref.current = document.getElementById("page-5") as unknown as any;
+        page_6_ref.current = document.getElementById("page-6") as unknown as any;
+  }, []);
+
     useLayoutEffect(() => {
         timeline.current = gsap.timeline();
 
         let AnimationsData = [] as any;
 
         const BrandLogoAnimations = [
-            // Restore previous animations
+            {
+                // Html div
+                // Restore previous animations
+                objectToAnimate: page_1_ref.current,
+                properties: {
+                  opacity: 0,
+                  duration: 0.3,
+                },
+                timelinePoint: 0.5,
+              },
             {
               objectToAnimate: generalGroupRef.current.rotation,
               properties: {
@@ -40,6 +66,22 @@ export function Keyboard(props: any) {
               timelinePoint: 0.5,
             },
             {
+                objectToAnimate: page_2_ref.current,
+                properties: {
+                    opacity: 1,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 1,
+              },
+              {
+                objectToAnimate: page_2_ref.current,
+                properties: {
+                    opacity: 0,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 2,
+              },
+            {
               objectToAnimate: generalGroupRef.current.position,
               properties: {
                 x: 0.2,
@@ -49,6 +91,14 @@ export function Keyboard(props: any) {
               },
               timelinePoint: 2,
             },
+            {
+                objectToAnimate: page_3_ref.current,
+                properties: {
+                    opacity: 1,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 2.2,
+              },
             {
               objectToAnimate: generalGroupRef.current.position,
               properties: {
@@ -60,6 +110,22 @@ export function Keyboard(props: any) {
               timelinePoint: 3.4,
             },
             {
+                objectToAnimate: page_3_ref.current,
+                properties: {
+                    opacity: 0,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 3.3,
+              },
+              {
+                objectToAnimate: page_4_ref.current,
+                properties: {
+                    opacity: 1,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 3.4,
+              },
+            {
               objectToAnimate: generalGroupRef.current.rotation,
               properties: {
                 x: 0,
@@ -70,6 +136,22 @@ export function Keyboard(props: any) {
               timelinePoint: 3.4,
             },
             {
+                objectToAnimate: page_4_ref.current,
+                properties: {
+                    opacity: 0,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 4.4,
+              },
+              {
+                objectToAnimate: page_5_ref.current,
+                properties: {
+                    opacity: 1,
+                    duration: 0.3,
+                  },
+                  timelinePoint: 4.5,
+              },
+            {
               objectToAnimate: generalGroupRef.current.rotation,
               properties: {
                 x: 4,
@@ -79,27 +161,6 @@ export function Keyboard(props: any) {
               },
               timelinePoint: 4.5,
             },
-            // {
-            //   objectToAnimate: generalGroupRef.current.rotation,
-            //   properties: {
-            //     x: -1.8,
-            //     y: 1.10198,
-            //     z: 0,
-            //     duration: 0.8,
-            //   },
-            //   timelinePoint: 5.5,
-            // },
-            // {
-            //   objectToAnimate: camera,
-            //   properties: {
-            //     zoom: 1.8,
-            //     duration: 0.8,
-            //     onUpdate: () => {
-            //       camera.updateProjectionMatrix();
-            //     },
-            //   },
-            //   timelinePoint: 5.8,
-            // }
           ];
           AnimationsData = [
             ...AnimationsData,
@@ -115,15 +176,6 @@ export function Keyboard(props: any) {
                 animation.timelinePoint,
             );
         });
-
-        // timeline.current.to(
-        //     generalGroupRef.current.rotation,
-        //     {
-        //         y: Math.PI * 2,
-        //         duration: 2,
-        //     },
-        //     2.5
-        // );
 
     }, [])
 
@@ -409,7 +461,6 @@ export function Keyboard(props: any) {
                     </group>
                 </group>
             </group>
-            <OrbitControls enableZoom={false} />
         </>
     )
 }
